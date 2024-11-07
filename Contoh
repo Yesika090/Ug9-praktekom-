@@ -1,0 +1,50 @@
+def hitung_biaya_konser(tiket, lokasi, waktu_menginap):
+    # Harga tiket
+    harga_tiket = {
+        'A': 350000,
+        'B': 270000,
+        'C': 150000
+    }
+    
+    # Biaya transportasi sesuai lokasi
+    biaya_transportasi = {
+        'Jakarta': 400000,
+        'Surabaya': 360000,
+        'Bandung': 390000,
+        'Yogyakarta': 0
+    }
+    
+    # Biaya per hari untuk penginapan per lokasi
+    biaya_penginapan_per_hari = {
+        'Jakarta': 100000,
+        'Surabaya': 80000,
+        'Bandung': 90000,
+        'Yogyakarta': 0
+    }
+    
+    # Mengambil biaya tiket berdasarkan tipe tiket
+    biaya_tiket = harga_tiket.get(tiket.upper(), 0)
+    # Mengambil biaya transportasi berdasarkan lokasi
+    biaya_transport = biaya_transportasi.get(lokasi.capitalize(), 0)
+    # Mengambil biaya penginapan harian berdasarkan lokasi
+    biaya_penginapan = biaya_penginapan_per_hari.get(lokasi.capitalize(), 0)
+    
+    # Menghitung biaya penginapan berdasarkan waktu menginap
+    if waktu_menginap > 24:
+        biaya_total_penginapan = biaya_penginapan + ((waktu_menginap - 24) * (biaya_penginapan // 24))
+    elif waktu_menginap == 24:
+        biaya_total_penginapan = biaya_penginapan
+    else:
+        biaya_total_penginapan = -biaya_penginapan  # Refund penginapan jika kurang dari 24 jam
+    
+    # Menghitung total biaya
+    total_biaya = biaya_tiket + biaya_transport + biaya_total_penginapan
+    return total_biaya
+
+# Contoh penggunaan fungsi
+tiket = 'A'
+lokasi = 'Jakarta'
+waktu_menginap = 30  # dalam jam
+
+total_biaya = hitung_biaya_konser(tiket, lokasi, waktu_menginap)
+print(f"Total pengeluaran untuk konser: {total_biaya} IDR")
